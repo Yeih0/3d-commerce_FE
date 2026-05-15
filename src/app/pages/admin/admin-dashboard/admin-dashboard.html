@@ -1,0 +1,158 @@
+<div class="admin-container">
+  <div class="admin-header">
+    <h1>
+      <mat-icon class="title-icon">admin_panel_settings</mat-icon>
+      Dashboard Admin
+    </h1>
+    <p class="subtitle">Gestisci prodotti, ordini e richieste del tuo store</p>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-icon products">
+          <mat-icon>inventory</mat-icon>
+        </div>
+        <div class="stat-info">
+          <h3>{{ stats.totalProducts }}</h3>
+          <p>Prodotti Totali</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-icon orders">
+          <mat-icon>shopping_bag</mat-icon>
+        </div>
+        <div class="stat-info">
+          <h3>{{ stats.totalOrders }}</h3>
+          <p>Ordini Totali</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-icon pending">
+          <mat-icon>pending</mat-icon>
+        </div>
+        <div class="stat-info">
+          <h3>{{ stats.pendingOrders }}</h3>
+          <p>Ordini in Sospeso</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-icon revenue">
+          <mat-icon>euro</mat-icon>
+        </div>
+        <div class="stat-info">
+          <h3>€{{ stats.revenue.toFixed(2) }}</h3>
+          <p>Fatturato Totale</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Action Cards -->
+  <div class="actions-grid">
+    <mat-card class="action-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="action-icon products-icon">inventory</mat-icon>
+        <mat-card-title>Gestione Prodotti</mat-card-title>
+        <mat-card-subtitle>Aggiungi, modifica o elimina prodotti dal catalogo</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Gestisci l'intero catalogo prodotti: crea nuovi articoli, aggiorna prezzi e disponibilità, modifica descrizioni e immagini.</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="navigateTo('/admin/products')">
+          <mat-icon>edit</mat-icon>
+          Gestisci Prodotti
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="action-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="action-icon orders-icon">receipt_long</mat-icon>
+        <mat-card-title>Storico Ordini</mat-card-title>
+        <mat-card-subtitle>Visualizza e gestisci tutti gli ordini ricevuti</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Monitora tutti gli ordini, aggiorna lo stato di spedizione, gestisci resi e rimborsi, visualizza dettagli clienti.</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="navigateTo('/admin/orders')">
+          <mat-icon>list_alt</mat-icon>
+          Vedi Ordini
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="action-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="action-icon requests-icon">mark_email_unread</mat-icon>
+        <mat-card-title>Richieste Personalizzazioni</mat-card-title>
+        <mat-card-subtitle>Gestisci le richieste di personalizzazione</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Visualizza le richieste di prodotti personalizzati, contatta i clienti per dettagli aggiuntivi, approva o rifiuta richieste.</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" disabled>
+          <mat-icon>inbox</mat-icon>
+          In Arrivo
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="action-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="action-icon analytics-icon">analytics</mat-icon>
+        <mat-card-title>Analytics e Report</mat-card-title>
+        <mat-card-subtitle>Statistiche vendite e performance</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Visualizza report dettagliati sulle vendite, prodotti più venduti, analisi clienti e trend di mercato.</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" disabled>
+          <mat-icon>bar_chart</mat-icon>
+          In Arrivo
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <!-- Quick Actions -->
+  <mat-card class="quick-actions-card">
+    <mat-card-header>
+      <mat-card-title>Azioni Rapide</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="quick-actions">
+        <button mat-stroked-button (click)="navigateTo('/admin/products')">
+          <mat-icon>add_circle</mat-icon>
+          Nuovo Prodotto
+        </button>
+        <button mat-stroked-button (click)="navigateTo('/admin/orders')">
+          <mat-icon>local_shipping</mat-icon>
+          Ordini da Spedire
+        </button>
+        <button mat-stroked-button>
+          <mat-icon>notifications</mat-icon>
+          Notifiche (0)
+        </button>
+        <button mat-stroked-button (click)="navigateTo('/')">
+          <mat-icon>storefront</mat-icon>
+          Vai allo Store
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

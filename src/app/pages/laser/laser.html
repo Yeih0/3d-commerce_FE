@@ -1,0 +1,52 @@
+<div class="page-container">
+  <div class="page-header">
+    <div class="header-content">
+      <h1>
+        <mat-icon class="title-icon">bolt</mat-icon>
+        {{ pageTitle }}
+      </h1>
+      <p class="page-subtitle">{{ pageSubtitle }}</p>
+    </div>
+  </div>
+
+  <app-product-filters
+    [filters]="filters"
+    [showMaterialLaserFilter]="laserType"
+    (filtersChange)="onFiltersChange($event)">
+  </app-product-filters>
+
+  <div class="products-info">
+    <p class="products-count">
+      <mat-icon>inventory</mat-icon>
+      Trovati <strong>{{ totalProducts }}</strong> prodotti
+    </p>
+  </div>
+
+  @if (paginatedProducts.length > 0) {
+    <div class="products-grid">
+      @for (product of paginatedProducts; track product.id) {
+        <app-product-card 
+          [product]="product"
+          (addToCart)="onAddToCart($event)">
+        </app-product-card>
+      }
+    </div>
+
+    <div class="pagination-container">
+      <mat-paginator
+        [length]="totalProducts"
+        [pageSize]="pageSize"
+        [pageIndex]="pageIndex"
+        [pageSizeOptions]="[12, 24, 48]"
+        (page)="onPageChange($event)"
+        showFirstLastButtons>
+      </mat-paginator>
+    </div>
+  } @else {
+    <div class="empty-state">
+      <mat-icon class="empty-icon">search_off</mat-icon>
+      <h3>Nessun prodotto trovato</h3>
+      <p>Prova a modificare i filtri di ricerca</p>
+    </div>
+  }
+</div>

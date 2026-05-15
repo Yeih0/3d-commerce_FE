@@ -1,0 +1,91 @@
+<div class="admin-container">
+  <div class="page-header">
+    <h1>
+      <mat-icon class="title-icon">receipt_long</mat-icon>
+      Storico Ordini
+    </h1>
+    <p class="subtitle">Visualizza e gestisci tutti gli ordini ricevuti</p>
+  </div>
+
+  <mat-card class="orders-table-card">
+    <mat-card-content>
+      @if (orders.length > 0) {
+        <table mat-table [dataSource]="orders" class="orders-table">
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>Ordine #</th>
+            <td mat-cell *matCellDef="let order">
+              <strong>#{{ order.id }}</strong>
+            </td>
+          </ng-container>
+
+          <!-- Customer Column -->
+          <ng-container matColumnDef="customer">
+            <th mat-header-cell *matHeaderCellDef>Cliente</th>
+            <td mat-cell *matCellDef="let order">
+              <div class="customer-info">
+                <p class="customer-name">{{ order.customerInfo.name }}</p>
+                <p class="customer-email">{{ order.customerInfo.email }}</p>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Items Column -->
+          <ng-container matColumnDef="items">
+            <th mat-header-cell *matHeaderCellDef>Prodotti</th>
+            <td mat-cell *matCellDef="let order">
+              {{ order.items.length }} articoli
+            </td>
+          </ng-container>
+
+          <!-- Total Column -->
+          <ng-container matColumnDef="total">
+            <th mat-header-cell *matHeaderCellDef>Totale</th>
+            <td mat-cell *matCellDef="let order">
+              <span class="order-total">€{{ order.totalAmount.toFixed(2) }}</span>
+            </td>
+          </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Stato</th>
+            <td mat-cell *matCellDef="let order">
+              <mat-chip [class]="getStatusClass(order.status)">
+                {{ getStatusLabel(order.status) }}
+              </mat-chip>
+            </td>
+          </ng-container>
+
+          <!-- Date Column -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Data</th>
+            <td mat-cell *matCellDef="let order">
+              {{ order.createdAt | date:'dd/MM/yyyy' }}
+            </td>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Azioni</th>
+            <td mat-cell *matCellDef="let order">
+              <button 
+                mat-icon-button 
+                color="primary"
+                matTooltip="Dettagli">
+                <mat-icon>visibility</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      } @else {
+        <div class="empty-state">
+          <mat-icon>inbox</mat-icon>
+          <p>Nessun ordine presente</p>
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>

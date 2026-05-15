@@ -1,0 +1,66 @@
+<mat-toolbar color="primary" class="header-container">
+  <mat-toolbar-row class="header-toolbar">
+    <!-- Logo -->
+    <a routerLink="/" class="logo-link">
+      <mat-icon>view_in_ar</mat-icon>
+      <span>3D Commerce</span>
+    </a>
+
+    <!-- Menu principale -->
+    <nav class="main-nav">
+      <button mat-button routerLink="/">Home</button>
+      <button mat-button routerLink="/stampe3d">Stampe 3D</button>
+      <button mat-button routerLink="/laser/oggetti">Laser</button>
+      <button mat-button routerLink="/adesivi">Adesivi</button>
+      <button mat-button routerLink="/contatti">Contatti</button>
+    </nav>
+
+    <!-- Spacer -->
+    <span class="spacer"></span>
+
+    <!-- User Actions -->
+    <div class="user-actions">
+      @if (isAuthenticated$ | async) {
+      <!-- Utente loggato -->
+      <span class="user-name">
+        Ciao, {{ (currentUser$ | async)?.name }}
+      </span>
+
+      @if (isAdmin$ | async) {
+      <button mat-button routerLink="/admin">
+        <mat-icon>admin_panel_settings</mat-icon>
+        Admin
+      </button>
+      }
+
+      <button mat-icon-button routerLink="/cart">
+        <mat-icon [matBadge]="cartCount()" matBadgeColor="warn">
+          shopping_cart
+        </mat-icon>
+      </button>
+
+      <button mat-button (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        Logout
+      </button>
+      } @else {
+      <!-- Utente NON loggato -->
+      <button class = "user-actions-button" mat-button (click)="openLogin()">
+        <mat-icon>login</mat-icon>
+        Login
+      </button>
+
+      <button mat-raised-button color="primary" (click)="openRegister()">
+        <mat-icon>person_add</mat-icon>
+        Registrati
+      </button>
+
+      <button class = "user-actions-button" mat-icon-button routerLink="/cart">
+        <mat-icon [matBadge]="cartCount()" matBadgeColor="warn">
+          shopping_cart
+        </mat-icon>
+      </button>
+      }
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

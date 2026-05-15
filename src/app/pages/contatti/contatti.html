@@ -1,0 +1,217 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>
+      <mat-icon class="title-icon">contact_support</mat-icon>
+      Contattaci
+    </h1>
+    <p class="page-subtitle">
+      Siamo qui per aiutarti! Compila il form o utilizza i nostri contatti diretti
+    </p>
+  </div>
+
+  <div class="content-layout">
+    <!-- Contact Form -->
+    <mat-card class="contact-form-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>mail</mat-icon>
+          Invia un Messaggio
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Nome e Cognome</mat-label>
+            <input matInput formControlName="name" placeholder="Mario Rossi">
+            <mat-icon matPrefix>person</mat-icon>
+            @if (contactForm.get('name')?.hasError('required') && contactForm.get('name')?.touched) {
+              <mat-error>Il nome è obbligatorio</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" placeholder="mario.rossi@email.com">
+            <mat-icon matPrefix>email</mat-icon>
+            @if (contactForm.get('email')?.hasError('required') && contactForm.get('email')?.touched) {
+              <mat-error>L'email è obbligatoria</mat-error>
+            }
+            @if (contactForm.get('email')?.hasError('email') && contactForm.get('email')?.touched) {
+              <mat-error>Inserisci un'email valida</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Telefono (opzionale)</mat-label>
+            <input matInput type="tel" formControlName="phone" placeholder="+39 123 456 7890">
+            <mat-icon matPrefix>phone</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Motivo del Contatto</mat-label>
+            <mat-select formControlName="motivo">
+              @for (motivo of motivoOptions; track motivo) {
+                <mat-option [value]="motivo">{{ motivo }}</mat-option>
+              }
+            </mat-select>
+            <mat-icon matPrefix>category</mat-icon>
+            @if (contactForm.get('motivo')?.hasError('required') && contactForm.get('motivo')?.touched) {
+              <mat-error>Seleziona un motivo</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Messaggio</mat-label>
+            <textarea 
+              matInput 
+              formControlName="message" 
+              rows="6"
+              placeholder="Scrivi qui il tuo messaggio..."></textarea>
+            <mat-icon matPrefix>message</mat-icon>
+            @if (contactForm.get('message')?.hasError('required') && contactForm.get('message')?.touched) {
+              <mat-error>Il messaggio è obbligatorio</mat-error>
+            }
+            @if (contactForm.get('message')?.hasError('minlength') && contactForm.get('message')?.touched) {
+              <mat-error>Il messaggio deve essere di almeno 10 caratteri</mat-error>
+            }
+          </mat-form-field>
+
+          <button 
+            mat-raised-button 
+            color="primary" 
+            type="submit"
+            class="submit-btn">
+            <mat-icon>send</mat-icon>
+            Invia Messaggio
+          </button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Contact Info -->
+    <div class="contact-info-section">
+      <mat-card class="info-card">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>location_on</mat-icon>
+            Sede
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Via Roma, 15</p>
+          <p>85028 Rionero in V., Italia</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="info-card">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>schedule</mat-icon>
+            Orari
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p><strong>Lunedì - Venerdì</strong></p>
+          <p>9:00 - 18:00</p>
+          <mat-divider style="margin: 0.75rem 0;"></mat-divider>
+          <p><strong>Sabato</strong></p>
+          <p>9:00 - 13:00</p>
+          <mat-divider style="margin: 0.75rem 0;"></mat-divider>
+          <p><strong>Domenica</strong></p>
+          <p>Chiuso</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="info-card">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>contact_phone</mat-icon>
+            Contatti Diretti
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="contact-item">
+            <mat-icon>email</mat-icon>
+            <div>
+              <p class="contact-label">Email</p>
+              <a href="mailto:valerioviggiano01@gmail.com">valerioviggiano01@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <mat-icon>phone</mat-icon>
+            <div>
+              <p class="contact-label">Telefono</p>
+              <a href="tel:+393287196604">+39 328 7196 604</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <mat-icon>chat</mat-icon>
+            <div>
+              <p class="contact-label">WhatsApp</p>
+              <a href="https://wa.me/+393287196604" target="_blank">+39 328 7196 604</a>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="info-card social-card">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>share</mat-icon>
+            Seguici sui Social
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="social-links">
+            <button mat-icon-button color="primary">
+              <mat-icon>facebook</mat-icon>
+            </button>
+            <button mat-icon-button color="primary">
+              <mat-icon>camera_alt</mat-icon>
+            </button>
+            <button mat-icon-button color="primary">
+              <mat-icon>flutter_dash</mat-icon>
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <!-- FAQ Section -->
+  <div class="faq-section">
+    <h2>
+      <mat-icon>help_outline</mat-icon>
+      Domande Frequenti
+    </h2>
+
+    <mat-card class="faq-card">
+      <mat-card-content>
+        <h3>Quanto tempo ci vuole per la produzione?</h3>
+        <p>I tempi di produzione variano da 1 a 4 giorni lavorativi in base alla complessità del prodotto. Trovi il tempo stimato su ogni scheda prodotto.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="faq-card">
+      <mat-card-content>
+        <h3>Posso modificare un ordine dopo averlo effettuato?</h3>
+        <p>Sì, puoi modificare l'ordine contattandoci entro 24 ore dall'acquisto, prima che inizi la produzione.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="faq-card">
+      <mat-card-content>
+        <h3>Come funzionano le personalizzazioni?</h3>
+        <p>I prodotti personalizzabili hanno un'opzione dedicata nel carrello. Ti contatteremo per confermare i dettagli prima di procedere con la produzione.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="faq-card">
+      <mat-card-content>
+        <h3>Offrite assistenza post-vendita?</h3>
+        <p>Assolutamente sì! Siamo disponibili per qualsiasi problema o domanda anche dopo l'acquisto. Offriamo garanzia su tutti i prodotti.</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

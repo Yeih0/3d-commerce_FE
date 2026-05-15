@@ -1,0 +1,164 @@
+<mat-card class="filters-card">
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon>filter_list</mat-icon>
+      Filtri
+    </mat-card-title>
+    <button mat-button color="primary" (click)="resetFilters()">
+      <mat-icon>restart_alt</mat-icon>
+      Reimposta
+    </button>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="filters-grid">
+      <!-- Search -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Cerca prodotto</mat-label>
+        <input 
+          matInput 
+          [(ngModel)]="filters.search"
+          (ngModelChange)="onFilterChange()"
+          placeholder="Nome prodotto...">
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+
+      <!-- Price Range -->
+      <mat-form-field appearance="outline">
+        <mat-label>Prezzo Min (€)</mat-label>
+        <input 
+          matInput 
+          type="number"
+          [(ngModel)]="filters.priceMin"
+          (ngModelChange)="onFilterChange()"
+          min="0">
+        <mat-icon matPrefix>euro</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Prezzo Max (€)</mat-label>
+        <input 
+          matInput 
+          type="number"
+          [(ngModel)]="filters.priceMax"
+          (ngModelChange)="onFilterChange()"
+          min="0">
+        <mat-icon matPrefix>euro</mat-icon>
+      </mat-form-field>
+
+      <!-- Order By -->
+      <mat-form-field appearance="outline">
+        <mat-label>Ordina per</mat-label>
+        <mat-select 
+          [(ngModel)]="filters.orderBy"
+          (ngModelChange)="onFilterChange()">
+          <mat-option value="name">Nome</mat-option>
+          <mat-option value="price-asc">Prezzo (↑)</mat-option>
+          <mat-option value="price-desc">Prezzo (↓)</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Customizable -->
+      <mat-form-field appearance="outline">
+        <mat-label>Personalizzabile</mat-label>
+        <mat-select 
+          [(ngModel)]="filters.customizable"
+          (ngModelChange)="onFilterChange()">
+          <mat-option [value]="null">Tutti</mat-option>
+          <mat-option [value]="true">Sì</mat-option>
+          <mat-option [value]="false">No</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Model Filter -->
+      @if (showModelFilter) {
+        <mat-form-field appearance="outline">
+          <mat-label>Con Modello 3D</mat-label>
+          <mat-select 
+            [(ngModel)]="filters.hasModel"
+            (ngModelChange)="onFilterChange()">
+            <mat-option [value]="null">Tutti</mat-option>
+            <mat-option [value]="true">Sì</mat-option>
+            <mat-option [value]="false">No</mat-option>
+          </mat-select>
+        </mat-form-field>
+      }
+
+      <!-- Material 3D Filter -->
+      @if (showMaterial3DFilter) {
+        <mat-form-field appearance="outline">
+          <mat-label>Materiale Stampa</mat-label>
+          <mat-select 
+            [(ngModel)]="filters.material3D"
+            (ngModelChange)="onFilterChange()">
+            <mat-option [value]="null">Tutti</mat-option>
+            @for (mat of materials3D; track mat) {
+              <mat-option [value]="mat">{{ mat }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      }
+
+      <!-- Laser Material Filters -->
+      @if (showMaterialLaserFilter === 'oggetti') {
+        <mat-form-field appearance="outline">
+          <mat-label>Materiale</mat-label>
+          <mat-select 
+            [(ngModel)]="filters.materialLaser"
+            (ngModelChange)="onFilterChange()">
+            <mat-option [value]="null">Tutti</mat-option>
+            @for (mat of materialsLaserOggetti; track mat) {
+              <mat-option [value]="mat">{{ mat }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      }
+
+      @if (showMaterialLaserFilter === 'stoffa') {
+        <mat-form-field appearance="outline">
+          <mat-label>Materiale</mat-label>
+          <mat-select 
+            [(ngModel)]="filters.materialLaser"
+            (ngModelChange)="onFilterChange()">
+            <mat-option [value]="null">Tutti</mat-option>
+            @for (mat of materialsLaserStoffa; track mat) {
+              <mat-option [value]="mat">{{ mat }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      }
+
+      <!-- Color Filter -->
+      @if (showColorFilter) {
+        <mat-form-field appearance="outline">
+          <mat-label>Colore</mat-label>
+          <mat-select 
+            [(ngModel)]="filters.color"
+            (ngModelChange)="onFilterChange()">
+            <mat-option [value]="null">Tutti</mat-option>
+            @for (color of colors; track color) {
+              <mat-option [value]="color">{{ color }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      }
+
+      <!-- Checkboxes -->
+      <div class="checkbox-group">
+        <mat-checkbox 
+          [(ngModel)]="filters.freeShipping"
+          (ngModelChange)="onFilterChange()">
+          Solo Spedizione Gratis
+        </mat-checkbox>
+      </div>
+
+      <div class="checkbox-group">
+        <mat-checkbox 
+          [(ngModel)]="filters.comingSoon"
+          (ngModelChange)="onFilterChange()">
+          In Arrivo
+        </mat-checkbox>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,141 @@
+.admin-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 3px solid #22c55e;
+  gap: 2rem;
+}
+
+.header-content h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 0 0 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.title-icon {
+  font-size: 2.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: #22c55e;
+}
+
+.subtitle {
+  color: #6b7280;
+  font-size: 1.125rem;
+  margin: 0;
+}
+
+.products-table-card {
+  overflow: hidden;
+}
+
+.products-table {
+  width: 100%;
+}
+
+.product-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.product-image-small {
+  width: 50px;
+  height: 50px;
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.product-name {
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+  color: #111;
+}
+
+.product-description {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #6b7280;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.category-chip {
+  background-color: #e5e7eb;
+  font-size: 0.75rem;
+}
+
+.price {
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: #22c55e;
+}
+
+mat-chip.in-stock {
+  background-color: #dcfce7;
+  color: #166534;
+  cursor: pointer;
+}
+
+mat-chip.out-of-stock {
+  background-color: #fee2e2;
+  color: #991b1b;
+  cursor: pointer;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.empty-state mat-icon {
+  font-size: 6rem;
+  width: 6rem;
+  height: 6rem;
+  color: #d1d5db;
+  margin-bottom: 1rem;
+}
+
+.empty-state p {
+  color: #6b7280;
+  font-size: 1.125rem;
+  margin: 0 0 2rem 0;
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .products-table {
+    display: block;
+    overflow-x: auto;
+  }
+}

@@ -1,0 +1,217 @@
+------------------------ E-COMMERCE + STRUTTURA PAGINE ------------------------
+PARTE FE:
+- Angular 17 + typescript + Angular Material
+
+PARTE BE:
+- java + springboot
+
+DATABASE: preferirei un db relazionale (postres, mysql o affini), in alternativa si potrebbe optare anche per uno NoSQL, consigliami tu.
+
+
+Per la parte BE e DB i lavori si svolgeranno in un secondo momento, attualmente mi importa la parte FE (quella che farai tu per intenderci).
+Le istruzioni per il website sono le sequenti:
+
+
+
++ HOME
+- Schermata home classica con presentazione, al suo interno è possibile vedere alcuni dei prodotti per categoria:
+	- Banner iniziale con titolo e button ESPLORA per accedere a tutta la gamma di prodotti (adesivi + stampe + laser)
+	- card NOVITA' con le novità del momento ed i prodotti più venduti/richiesti
+	- prima card con alcuni prodotti di stampa 3D (sarà una lista scorrevole orizzontalmente di 6 cards con alla fine il button MORE -> che redindirizza alla pagina STAMPE 3D)
+	- seconda card con alcuni prodotti di stampa laser (sarà una lista scorrevole orizzontalmente di 6 cards con alla fine il button MORE -> che redindirizza alla pagina STAMPE LASER)
+	- terza card con alcuni prodotti di adesivi (sarà una lista scorrevole orizzontalmente di 6 cards con alla fine il button MORE -> che redindirizza alla pagina ADESIVI)
+- tra una card e l'altra puoi inserire qualcosa a gusto tuo, magari info per le stampe, qualità prodotti, consegne o altro.
+
+++ PAGINE SINGOLE
+- In ogni pagina saranno presenti dei filtri per i prodotti, quali:
+	+ Prezzo (con possibilità di range di prezzo)
+	+ Cerca per Nome
+	+ Personalizzabili (si/no)
+	+ Ordine alfabetico
+	+ spedizione gratis (si/no)
+	+ in arrivo (si/no) [questo indicatore si applica anche al singolo prodotto ed indica che sarà presto disponibile nello store, come novità]
+	
+le pagine si divideranno in:
+	+ Stampe 3D
+		- i prodotti con tag STAMPA_3D saranno inseriti qui, la pagina avrà:
+			- filtro aggiuntivo per mostrare solo i prodotti con allegato il file del modello di stampa
+			- filtro aggiuntivo per materiale di stampa
+			- visualizzazione di tutti i prodotti (gli stessi di Stampe3D -> creazioni, perchè da menu si reindirizzerà a questa pagina)
+			- saranno disposti in griglia con funzionalità di paginazione (24 prodotti per pagina)
+			- ogni prodotto di stampa 3d avrà queste caratteristiche:
+				- foto prodotto
+				- titolo e descrizione (con misure prodotto)
+				- prezzo + eventuale spedizione (con giorni indicati elaborazoine + spedizione)
+				- file del modello di stampa (se disponibile per quel prodotto)
+				- tendina selezione del materiale (parliamo dei comuni stampa 3d)
+				- tendina per selezione del colore (insieme ai colori sarà presente l'opzione personalizza)
+					- personalizza: non sarà presente su tutti i prodotti, nel caso si dovesse selezionare questa opzione si aprirà un format con:
+						- descrizione personalizzazione
+						- tempo stimato
+						- numero di telefono del cliente (per contattarlo in caso di chiarimenti)
+				- tasto quantità
+				- tag STAMPA_3D (se è presente anche il file, si aggiunge il tag MODELLO_STAMPA, questo ai fini di logica di business interni per gestire meglio i prodotti)
+				- unità rimanenti per ogni materiale e colore (tranne se personalizzato)
+			- in fondo alla pagina sarà presente la sezione ESPLORA MODELLI DI STAMPA (ovvero da menu Stampre3d -> modelli di stampa)
+				- sarà presente una disposizione con tutti i file caricati dei modelli (sopra alla pagina iniziale sarà comunque presente il fitlro dei file)
+				
+	+ Stampe LASER
+		- i prodotti con tag STAMPA_LASER saranno inseriti qui, la pagina avrà:
+			- filtro aggiuntivo per materiale di stampa (legno, metallo, plastica, gomma, panni, asciugamani)
+			- visualizzazione di tutti i prodotti (gli stessi di Stampe Laser)
+			- saranno disposti in griglia con funzionalità di paginazione (24 prodotti per pagina)
+			- ogni prodotto di stampa laser avrà queste caratteristiche:
+				- foto prodotto
+				- titolo e descrizione (con misure prodotto)
+				- prezzo + eventuale spedizione (con giorni indicati elaborazoine + spedizione)
+				- tendina selezione del materiale (legno, metallo, plastica, gomma, superfici solde, panni, asciugamani, superfici morbide)
+				- personalizza: non sarà presente su tutti i prodotti, nel caso si dovesse selezionare questa opzione si aprirà un format con:
+					- descrizione personalizzazione
+					- tempo stimato
+					- font da utilizzare (con tendina dei font)
+					- numero di telefono del cliente (per contattarlo in caso di chiarimenti)
+				- tasto quantità
+				- unità rimanenti per ogni materiale
+			NOTA Legno, Plastiche e Metalli rientrano nella categoria LASER SU OGGETTI, gli altri LASER SU STOFFA, questo ai fini di un corretto
+			reindirizzamento da menu (se faccio da menu Sampe Laser -> Laser su oggetti, mi apro questa pagina con i filtri materiale dedicati, analogo per l'altro)
+		
+	+ ADESIVI
+	- i prodotti con tag ADESIVI saranno inseriti qui, la pagina avrà:
+		- filtro aggiuntivo per il colore
+		- visualizzazione di tutti i prodotti
+		- saranno disposti in griglia con funzionalità di paginazione (24 prodotti per pagina)
+		- ogni prodotto di adesivi avrà queste caratteristiche:
+			- foto prodotto
+			- titolo e descrizione (con misure prodotto)
+			- prezzo + eventuale spedizione (con giorni indicati elaborazoine + spedizione)
+			- tendina selezione del colore
+			- personalizza: non sarà presente su tutti i prodotti, nel caso si dovesse selezionare questa opzione si aprirà un format con:
+				- descrizione personalizzazione
+				- tempo stimato
+				- font da utilizzare (con tendina dei font)
+				- numero di telefono del cliente (per contattarlo in caso di chiarimenti)
+			- tasto quantità
+			- unità rimanenti per ogni colore	
+
+			
+++ SEMPRE PRESENTI
+- banner con menu sopra la pagina, contenenti le seguenti categorie (alcune espandibili):
+	- Stampe 3D
+		- Creazioni (per acquisto di prodotti)
+		- Modelli di stampa (per scaricare i file di ALCUNI modellini)
+	- Stampe Laser
+		- Laser su oggetti
+		- Laser su stoffa
+	- Adesivi
+	- Carrello
+	- Contatti
+
+- footer con informazioni dedicate (sede, contatti, mail e altro)
+
+
+-- NOTA: Implementa come meglio credi (sempre per il front end) un sistema di modellazione degli admin, nel senso che l'admin potrà:
+- aggiungere nuovi prodotti
+- modificare prodotti esistenti (per sconti, aggiunta tag di personalizzazione, insomma tutto quello che si può fare sul prodotto)
+- vedere storico ordini in una pagina dedicata
+- vedere storico richieste in una pagina dedicata
+(questi ultimi due punti li miglioriamo in un secondo momento)
+
+
+i colori? Prevalenza su BIANCO, NERO E VERDE
+
+
+
+------------------------ LANDING PAGE ------------------------
+Web-app pensata solo per conoscenza, senza BE, DB o altro, solo FE in angular 17 + TS.
+
+Struttura simile alla precedente:
+
++HOME
+	- Schermata home classica con presentazione, al suo interno è possibile vedere alcuni dei prodotti per categoria:
+	- Banner iniziale con titolo e button ESPLORA per accedere a tutta la gamma di prodotti (adesivi + stampe + laser)
+	- card NOVITA' con le novità del momento ed i prodotti più venduti/richiesti
+	- prima card con alcuni prodotti di stampa 3D (sarà una lista scorrevole orizzontalmente di 6 cards con alla fine il button MORE -> che redindirizza alla pagina STAMPE 3D)
+	- seconda card con alcuni prodotti di stampa laser (sarà una lista scorrevole orizzontalmente di 6 cards con alla fine il button MORE -> che redindirizza alla pagina STAMPE LASER)
+	- terza card con alcuni prodotti di adesivi (sarà una lista scorrevole orizzontalmente di 6 cards con alla fine il button MORE -> che redindirizza alla pagina ADESIVI)
+- tra una card e l'altra puoi inserire qualcosa a gusto tuo, magari info per le stampe, qualità prodotti, consegne o altro.
+
+++ PAGINE SINGOLE
+- In ogni pagina saranno presenti dei filtri per i prodotti, quali:
+	+ Cerca per Nome
+	+ Personalizzabili (si/no)
+	+ Ordine alfabetico
+	+ disponibile (si/no) [questo indicatore si applica anche al singolo prodotto ed indica che sarà presto disponibile nello store che ha disponibilità immediata]
+	
+le pagine si divideranno in:
+	+ Stampe 3D
+		- i prodotti con tag STAMPA_3D saranno inseriti qui, la pagina avrà:
+			- filtro aggiuntivo per mostrare solo i prodotti con allegato il file del modello di stampa
+			- filtro aggiuntivo per materiale di stampa
+			- visualizzazione di tutti i prodotti (gli stessi di Stampe3D -> creazioni, perchè da menu si reindirizzerà a questa pagina)
+			- saranno disposti in griglia con funzionalità di paginazione (24 prodotti per pagina)
+			- ogni prodotto di stampa 3d avrà queste caratteristiche:
+				- foto prodotto
+				- titolo e descrizione (con misure prodotto)
+				- file del modello di stampa (se disponibile per quel prodotto)
+				- elenco materiali disponibili
+				- elenco colori disponibili
+				- specifica se è personalizzabile o no
+				- tempo di attesa
+				- disponibile (si/no)
+				- tag STAMPA_3D (se è presente anche il file, si aggiunge il tag MODELLO_STAMPA, questo ai fini di logica di business interni per gestire meglio i prodotti)
+			- in fondo alla pagina sarà presente la sezione ESPLORA MODELLI DI STAMPA (ovvero da menu Stampre3d -> modelli di stampa)
+				- sarà presente una disposizione con tutti i file caricati dei modelli (sopra alla pagina iniziale sarà comunque presente il fitlro dei file)
+				
+	+ Stampe LASER
+		- i prodotti con tag STAMPA_LASER saranno inseriti qui, la pagina avrà:
+			- filtro aggiuntivo per materiale di stampa (legno, metallo, plastica, gomma, panni, asciugamani)
+			- visualizzazione di tutti i prodotti (gli stessi di Stampe Laser)
+			- saranno disposti in griglia con funzionalità di paginazione (24 prodotti per pagina)
+			- ogni prodotto di stampa laser avrà queste caratteristiche:
+				- foto prodotto
+				- titolo e descrizione (con misure prodotto)
+				- elenco materiali (legno, metallo, plastica, gomma, superfici solde, panni, asciugamani, superfici morbide)
+				- personalizzabile o no
+				- tempo di attesa
+				- disponibile (si/no)
+				- unità rimanenti per ogni materiale
+			NOTA Legno, Plastiche e Metalli rientrano nella categoria LASER SU OGGETTI, gli altri LASER SU STOFFA, questo ai fini di un corretto
+			reindirizzamento da menu (se faccio da menu Sampe Laser -> Laser su oggetti, mi apro questa pagina con i filtri materiale dedicati, analogo per l'altro)
+		
+	+ ADESIVI
+	- i prodotti con tag ADESIVI saranno inseriti qui, la pagina avrà:
+		- filtro aggiuntivo per il colore
+		- visualizzazione di tutti i prodotti
+		- saranno disposti in griglia con funzionalità di paginazione (24 prodotti per pagina)
+		- ogni prodotto di adesivi avrà queste caratteristiche:
+			- foto prodotto
+			- titolo e descrizione (con misure prodotto)
+			- elenco colori disponibili
+			- personalizzabile o no
+			- descrizione personalizzazione
+			- disponibile (si/no)
+
++ OGNI PRODOTTO avrà con se un identificativo, calcolato in base al nome, materiale, categotia (3d, laser o adesivo, si può basare sul tag) e colore.
+l'id sarà utile ai fini di comunicazione del cliente. Il cliente mi contatta e fa riferimento tramite il codice per ordinare e/o personalizzare.
+
+			
+++ SEMPRE PRESENTI
+- banner con menu sopra la pagina, contenenti le seguenti categorie (alcune espandibili):
+	- Stampe 3D
+		- Creazioni (per acquisto di prodotti)
+		- Modelli di stampa (per scaricare i file di ALCUNI modellini)
+	- Stampe Laser
+		- Laser su oggetti
+		- Laser su stoffa
+	- Adesivi
+	- Contatti
+	
++ Sezione admin con login 'finto', perchè non saranno bisogno token o auth ma solo 
+- username: 3br31.1945
+- password: m1s0n0s3ur4t04dd0ss0
+- questa sezione apre una nuova sezione menu detta ADMIN con sottopagine:
+	- modifica prodotto esistente (update o cancellare) per aggiornare ognuno dei campi disponibili
+	- aggiungi nuovo prodotto (in questo caso saranno chieste tutte le info del prodotto)
+	- modifica contatti
+
+	

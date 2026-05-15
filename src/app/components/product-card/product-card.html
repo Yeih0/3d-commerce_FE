@@ -1,0 +1,69 @@
+<mat-card class="product-card" [class.compact]="compact" (click)="openProductDetail()">
+  <div class="product-image">
+    @if (product.images && product.images.length > 0) {
+      <img [src]="'assets/images/' + product.images[0]" [alt]="product.name">
+    } @else {
+      <div class="placeholder-image">📦</div>
+    }
+    
+    @if (product.comingSoon) {
+      <mat-chip class="badge badge-coming">In Arrivo</mat-chip>
+    }
+  </div>
+
+  <mat-card-content class="product-content">
+    <h3 class="product-name">{{ product.name }}</h3>
+    
+    @if (!compact) {
+      <p class="product-description">{{ product.description }}</p>
+    }
+
+    <div class="product-price-row">
+      <span class="product-price">€{{ product.price.toFixed(2) }}</span>
+      @if (product.freeShipping) {
+        <mat-chip class="chip-shipping">Spedizione Gratis</mat-chip>
+      }
+    </div>
+
+    <div class="product-tags">
+      <mat-chip class="chip-category">{{ product.category }}</mat-chip>
+      @if (product.customization.available) {
+        <mat-chip class="chip-custom">Personalizzabile</mat-chip>
+      }
+      @if (product.hasModel) {
+        <mat-chip class="chip-model">Con Modello</mat-chip>
+      }
+    </div>
+
+    <div class="product-delivery">
+      <mat-icon>schedule</mat-icon>
+      <small>
+        {{ product.processingDays }} giorni lavorazione
+        @if (product.shippingDays > 0) {
+          + {{ product.shippingDays }} spedizione
+        }
+      </small>
+    </div>
+
+    <div class="card-actions">
+      <button 
+        mat-raised-button 
+        color="primary"
+        class="btn-details"
+        (click)="openProductDetail(); $event.stopPropagation()">
+        <mat-icon>visibility</mat-icon>
+        Dettagli
+      </button>
+      
+      <button 
+        mat-icon-button 
+        color="primary"
+        class="btn-quick-add"
+        [disabled]="!product.inStock"
+        (click)="onQuickAdd($event)"
+        matTooltip="Aggiungi rapido">
+        <mat-icon>add_shopping_cart</mat-icon>
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,201 @@
+<div class="home-container">
+  <!-- Hero Banner -->
+  <section class="hero-banner">
+    <div class="hero-content">
+      <h1 class="hero-title">Benvenuto nel Mondo della Stampa 3D</h1>
+      <p class="hero-subtitle">
+        Creazioni uniche, personalizzabili e di alta qualità<br>
+        Realizzate con tecnologia Bambulab A1 Mini
+      </p>
+      <button 
+        mat-raised-button 
+        color="primary" 
+        class="hero-btn"
+        (click)="navigateTo('/stampe3d')">
+        <mat-icon>explore</mat-icon>
+        ESPLORA IL CATALOGO
+      </button>
+    </div>
+  </section>
+
+  <!-- Novità e Più Venduti -->
+  <section class="section">
+    <div class="section-header">
+      <h2>
+        <mat-icon class="section-icon">stars</mat-icon>
+        Novità e Più Venduti
+      </h2>
+    </div>
+    
+    <div class="products-grid">
+      @for (product of featuredProducts; track product.id) {
+        <app-product-card 
+          [product]="product"
+          (addToCart)="onAddToCart($event)">
+        </app-product-card>
+      }
+    </div>
+  </section>
+
+  <!-- Info Cards -->
+  <section class="info-section">
+    <mat-card class="info-card">
+      <mat-icon class="info-icon">flash_on</mat-icon>
+      <h3>Produzione Rapida</h3>
+      <p>Stampa su richiesta in 1-4 giorni lavorativi</p>
+    </mat-card>
+
+    <mat-card class="info-card">
+      <mat-icon class="info-icon">palette</mat-icon>
+      <h3>Personalizzazione</h3>
+      <p>Crea prodotti unici su misura per te</p>
+    </mat-card>
+
+    <mat-card class="info-card">
+      <mat-icon class="info-icon">verified</mat-icon>
+      <h3>Qualità Premium</h3>
+      <p>Materiali certificati e alta precisione</p>
+    </mat-card>
+  </section>
+
+  <!-- Stampe 3D -->
+  <section class="section">
+    <div class="section-header">
+      <h2>
+        <mat-icon class="section-icon">view_in_ar</mat-icon>
+        Stampe 3D
+      </h2>
+    </div>
+
+    <div class="horizontal-scroll">
+      @for (product of stampa3dProducts; track product.id) {
+        <div class="scroll-item">
+          <app-product-card 
+            [product]="product"
+            [compact]="true"
+            (addToCart)="onAddToCart($event)">
+          </app-product-card>
+        </div>
+      }
+      
+      <div class="scroll-item more-card">
+        <button 
+          mat-raised-button 
+          color="accent"
+          class="more-btn"
+          (click)="navigateTo('/stampe3d')">
+          <mat-icon>arrow_forward</mat-icon>
+          <span>Vedi Tutto</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Banner Spedizione -->
+  <section class="promo-banner">
+    <mat-icon class="promo-icon">local_shipping</mat-icon>
+    <div class="promo-content">
+      <h3>Spedizione Gratuita</h3>
+      <p>Su ordini superiori a €30! Consegna in tutta Italia</p>
+    </div>
+  </section>
+
+  <!-- Stampe Laser -->
+  <section class="section">
+    <div class="section-header">
+      <h2>
+        <mat-icon class="section-icon">bolt</mat-icon>
+        Stampe Laser
+      </h2>
+    </div>
+
+    <div class="horizontal-scroll">
+      @for (product of laserProducts; track product.id) {
+        <div class="scroll-item">
+          <app-product-card 
+            [product]="product"
+            [compact]="true"
+            (addToCart)="onAddToCart($event)">
+          </app-product-card>
+        </div>
+      }
+      
+      <div class="scroll-item more-card">
+        <button 
+          mat-raised-button 
+          color="accent"
+          class="more-btn"
+          (click)="navigateTo('/laser/oggetti')">
+          <mat-icon>arrow_forward</mat-icon>
+          <span>Vedi Tutto</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Adesivi -->
+  <section class="section">
+    <div class="section-header">
+      <h2>
+        <mat-icon class="section-icon">style</mat-icon>
+        Adesivi Personalizzati
+      </h2>
+    </div>
+
+    <div class="horizontal-scroll">
+      @for (product of adesiviFeatured; track product.id) {
+        <div class="scroll-item">
+          <app-product-card 
+            [product]="product"
+            [compact]="true"
+            (addToCart)="onAddToCart($event)">
+          </app-product-card>
+        </div>
+      }
+      
+      <div class="scroll-item more-card">
+        <button 
+          mat-raised-button 
+          color="accent"
+          class="more-btn"
+          (click)="navigateTo('/adesivi')">
+          <mat-icon>arrow_forward</mat-icon>
+          <span>Vedi Tutto</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom Info -->
+  <section class="bottom-info">
+    <mat-card class="info-detail-card">
+      <mat-icon>help_outline</mat-icon>
+      <h3>Come Funziona?</h3>
+      <ol>
+        <li>Scegli il prodotto che preferisci</li>
+        <li>Personalizza colori e materiali</li>
+        <li>Completa l'ordine online</li>
+        <li>Ricevi il tuo prodotto a casa</li>
+      </ol>
+    </mat-card>
+
+    <mat-card class="info-detail-card">
+      <mat-icon>inventory_2</mat-icon>
+      <h3>I Nostri Materiali</h3>
+      <ul>
+        <li><strong>PLA:</strong> Biodegradabile, ideale per decorazioni</li>
+        <li><strong>PETG:</strong> Resistente, perfetto per uso quotidiano</li>
+        <li><strong>Resina:</strong> Alta precisione per dettagli minuti</li>
+      </ul>
+    </mat-card>
+
+    <mat-card class="info-detail-card">
+      <mat-icon>workspace_premium</mat-icon>
+      <h3>Garanzia di Qualità</h3>
+      <p>
+        Ogni prodotto è controllato manualmente prima della spedizione.
+        Se non sei soddisfatto, offriamo reso gratuito entro 14 giorni.
+      </p>
+    </mat-card>
+  </section>
+</div>

@@ -1,0 +1,77 @@
+<div class="page-container">
+  <div class="page-header">
+    <div class="header-content">
+      <h1>
+        <mat-icon class="title-icon">folder_open</mat-icon>
+        Modelli di Stampa 3D
+      </h1>
+      <p class="page-subtitle">
+        Scarica gratuitamente i modelli 3D e stampa i nostri prodotti con la tua stampante
+      </p>
+    </div>
+  </div>
+
+  <div class="info-banner">
+    <mat-icon>info</mat-icon>
+    <div>
+      <h3>Come utilizzare i modelli</h3>
+      <p>I file STL sono pronti per essere importati nel tuo software di slicing preferito (Cura, PrusaSlicer, BambuStudio, ecc.). 
+      Assicurati di verificare le impostazioni consigliate per ottenere i migliori risultati.</p>
+    </div>
+  </div>
+
+  <div class="models-grid">
+    @for (product of modelsAvailable; track product.id) {
+      <mat-card class="model-card">
+        <div class="model-image">
+          <div class="placeholder-image">🖨️</div>
+        </div>
+
+        <mat-card-content>
+          <h3>{{ product.name }}</h3>
+          <p class="model-description">{{ product.description }}</p>
+
+          @if (product.dimensions) {
+            <p class="model-dimensions">
+              <mat-icon>straighten</mat-icon>
+              Dimensioni: {{ product.dimensions }}
+            </p>
+          }
+
+          <div class="model-tags">
+            <mat-chip class="tag-chip">{{ product.category }}</mat-chip>
+            <mat-chip class="tag-chip model-chip">MODELLO_STAMPA</mat-chip>
+            @if (product.materials3D) {
+              @for (material of product.materials3D; track material) {
+                <mat-chip class="tag-chip">{{ material }}</mat-chip>
+              }
+            }
+          </div>
+
+          <div class="model-file-info">
+            <mat-icon>description</mat-icon>
+            <span>Formato: STL</span>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button 
+            mat-raised-button 
+            color="primary"
+            (click)="downloadModel(product)">
+            <mat-icon>download</mat-icon>
+            Scarica Modello
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    }
+  </div>
+
+  @if (modelsAvailable.length === 0) {
+    <div class="empty-state">
+      <mat-icon class="empty-icon">folder_off</mat-icon>
+      <h3>Nessun modello disponibile</h3>
+      <p>Stiamo lavorando per aggiungere nuovi modelli scaricabili</p>
+    </div>
+  }
+</div>

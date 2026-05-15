@@ -1,0 +1,114 @@
+<div class="page-container">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <h1>
+        <mat-icon class="title-icon">view_in_ar</mat-icon>
+        Stampe 3D - Creazioni
+      </h1>
+      <p class="page-subtitle">
+        Oggetti stampati in 3D con tecnologia Bambulab A1 Mini. 
+        Personalizza colori e materiali secondo le tue esigenze.
+      </p>
+    </div>
+    <button 
+      mat-raised-button 
+      color="primary"
+      (click)="goToModels()">
+      <mat-icon>folder_open</mat-icon>
+      Esplora Modelli 3D
+    </button>
+  </div>
+
+  <!-- Filters -->
+  <app-product-filters
+    [filters]="filters"
+    [showModelFilter]="true"
+    [showMaterial3DFilter]="true"
+    (filtersChange)="onFiltersChange($event)">
+  </app-product-filters>
+
+  <!-- Products Count -->
+  <div class="products-info">
+    <p class="products-count">
+      <mat-icon>inventory</mat-icon>
+      Trovati <strong>{{ totalProducts }}</strong> prodotti
+    </p>
+  </div>
+
+  <!-- Loading Spinner -->
+  @if (loading) {
+    <div class="loading-container">
+      <mat-spinner diameter="60"></mat-spinner>
+      <p>Caricamento prodotti...</p>
+    </div>
+  }
+
+  <!-- Products Grid -->
+  @if (!loading && paginatedProducts.length > 0) {
+    <div class="products-grid">
+      @for (product of paginatedProducts; track product.id) {
+        <app-product-card 
+          [product]="product"
+          (addToCart)="onAddToCart($event)">
+        </app-product-card>
+      }
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-container">
+      <mat-paginator
+        [length]="totalProducts"
+        [pageSize]="pageSize"
+        [pageIndex]="pageIndex"
+        [pageSizeOptions]="[12, 24, 48, 96]"
+        (page)="onPageChange($event)"
+        showFirstLastButtons>
+      </mat-paginator>
+    </div>
+  }
+
+  <!-- Empty State -->
+  @if (!loading && paginatedProducts.length === 0) {
+    <div class="empty-state">
+      <mat-icon class="empty-icon">search_off</mat-icon>
+      <h3>Nessun prodotto trovato</h3>
+      <p>Prova a modificare i filtri di ricerca</p>
+      <button 
+        mat-raised-button 
+        color="primary"
+        (click)="filters = {
+          priceMin: 0,
+          priceMax: 1000,
+          search: '',
+          customizable: null,
+          freeShipping: false,
+          inStock: true,
+          comingSoon: false,
+          orderBy: 'name',
+          hasModel: null,
+          material3D: null,
+          materialLaser: null,
+          color: null
+        }; applyFilters()">
+        Reimposta Filtri
+      </button>
+    </div>
+  }
+
+  <!-- Bottom CTA Section -->
+  <div class="bottom-cta">
+    <mat-icon class="cta-icon">file_download</mat-icon>
+    <div class="cta-content">
+      <h3>Hai una stampante 3D?</h3>
+      <p>Scarica i nostri modelli gratuiti e stampali da solo!</p>
+      <button 
+        mat-raised-button 
+        color="accent"
+        (click)="goToModels()">
+        <mat-icon>folder_open</mat-icon>
+        Vai ai Modelli
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,185 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>
+      <mat-icon class="title-icon">shopping_cart</mat-icon>
+      Il Tuo Carrello
+    </h1>
+    @if (cartCount() > 0) {
+      <button 
+        mat-stroked-button 
+        color="warn"
+        (click)="clearCart()">
+        <mat-icon>delete_outline</mat-icon>
+        Svuota Carrello
+      </button>
+    }
+  </div>
+
+  @if (cartCount() === 0) {
+    <!-- Empty Cart State -->
+    <div class="empty-cart">
+      <mat-icon class="empty-icon">shopping_cart</mat-icon>
+      <h2>Il tuo carrello è vuoto</h2>
+      <p>Aggiungi prodotti per iniziare lo shopping!</p>
+      <button 
+        mat-raised-button 
+        color="primary"
+        (click)="continueShopping()">
+        <mat-icon>store</mat-icon>
+        Vai allo Store
+      </button>
+    </div>
+  } @else {
+    <!-- Cart with Items -->
+    <div class="cart-layout">
+      <!-- Cart Items -->
+      <div class="cart-items">
+        <h3 class="section-title">Prodotti ({{ cartCount() }})</h3>
+        
+        @for (item of cartItems(); track $index) {
+          <mat-card class="cart-item">
+            <div class="item-image">
+              <div class="placeholder-image">📦</div>
+            </div>
+
+            <div class="item-details">
+              <h3>{{ item.product.name }}</h3>
+              <p class="item-category">{{ item.product.category }}</p>
+              
+              @if (item.selectedMaterial) {
+                <p class="item-variant">
+                  <mat-icon>category</mat-icon>
+                  Materiale: {{ item.selectedMaterial }}
+                </p>
+              }
+              
+              @if (item.selectedColor) {
+                <p class="item-variant">
+                  <mat-icon>palette</mat-icon>
+                  Colore: {{ item.selectedColor }}
+                </p>
+              }
+
+              @if (item.customizationDetails) {
+                <p class="item-custom">
+                  <mat-icon>edit</mat-icon>
+                  Personalizzato
+                </p>
+              }
+
+              <div class="item-delivery">
+                <mat-icon>schedule</mat-icon>
+                <small>
+                  {{ item.product.processingDays }} giorni lavorazione
+                  @if (item.product.shippingDays > 0) {
+                    + {{ item.product.shippingDays }} spedizione
+                  }
+                </small>
+              </div>
+            </div>
+
+            <div class="item-quantity">
+              <label>Quantità</label>
+              <div class="quantity-controls">
+                <button 
+                  mat-icon-button 
+                  (click)="updateQuantity($index, item.quantity - 1)"
+                  [disabled]="item.quantity <= 1">
+                  <mat-icon>remove</mat-icon>
+                </button>
+                <span class="quantity-value">{{ item.quantity }}</span>
+                <button 
+                  mat-icon-button 
+                  (click)="updateQuantity($index, item.quantity + 1)">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+            </div>
+
+            <div class="item-price">
+              <p class="price-label">Prezzo unitario</p>
+              <p class="unit-price">€{{ item.product.price.toFixed(2) }}</p>
+              
+              <p class="price-label">Totale</p>
+              <p class="total-price">€{{ item.totalPrice.toFixed(2) }}</p>
+            </div>
+
+            <div class="item-actions">
+              <button 
+                mat-icon-button 
+                color="warn"
+                (click)="removeItem($index)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </mat-card>
+        }
+      </div>
+
+      <!-- Order Summary -->
+      <div class="order-summary-container">
+        <mat-card class="order-summary">
+          <h3>Riepilogo Ordine</h3>
+          
+          <mat-divider></mat-divider>
+
+          <div class="summary-row">
+            <span>Subtotale ({{ cartCount() }} articoli)</span>
+            <span class="value">€{{ cartTotal().toFixed(2) }}</span>
+          </div>
+
+          <div class="summary-row">
+            <span>Spedizione</span>
+            <span class="value">
+              @if (shippingCost() === 0) {
+                <span class="free-shipping">GRATIS</span>
+              } @else {
+                €{{ shippingCost().toFixed(2) }}
+              }
+            </span>
+          </div>
+
+          @if (cartTotal() < 30 && shippingCost() > 0) {
+            <div class="shipping-notice">
+              <mat-icon>info</mat-icon>
+              <small>Aggiungi €{{ (30 - cartTotal()).toFixed(2) }} per la spedizione gratuita!</small>
+            </div>
+          }
+
+          <mat-divider></mat-divider>
+
+          <div class="summary-row total-row">
+            <span class="total-label">Totale</span>
+            <span class="total-value">€{{ totalWithShipping().toFixed(2) }}</span>
+          </div>
+
+          <button 
+            mat-raised-button 
+            color="primary"
+            class="checkout-btn"
+            (click)="goToCheckout()">
+            <mat-icon>payment</mat-icon>
+            Procedi al Checkout
+          </button>
+
+          <button 
+            mat-stroked-button 
+            class="continue-shopping-btn"
+            (click)="continueShopping()">
+            <mat-icon>arrow_back</mat-icon>
+            Continua lo Shopping
+          </button>
+
+          <div class="payment-methods">
+            <p class="payment-title">Metodi di pagamento accettati:</p>
+            <div class="payment-icons">
+              <mat-icon>credit_card</mat-icon>
+              <mat-icon>account_balance</mat-icon>
+              <span>PayPal</span>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  }
+</div>

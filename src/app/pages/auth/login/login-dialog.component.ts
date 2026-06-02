@@ -223,31 +223,39 @@ export class LoginDialogComponent {
     });
   }
 
-  onSubmit() {
-    if (this.loginForm.valid) {
-      this.loading = true;
-      this.errorMessage = '';
-
-      this.authService.login(this.loginForm.value).subscribe({
-        next: (response) => {
-          if (response.success) {
-            this.snackBar.open('Login effettuato con successo!', 'Chiudi', {
-              duration: 3000
-            });
-            
-            this.dialogRef.close({ success: true });
-          }
-        },
-        error: (error) => {
-          this.errorMessage = error.message || 'Credenziali non valide';
-          this.loading = false;
-        },
-        complete: () => {
-          this.loading = false;
-        }
-      });
-    }
+onSubmit() {
+  if (!this.loginForm.valid) {
+    Object.keys(this.loginForm.controls).forEach(key => {
+      this.loginForm.get(key)?.markAsTouched();
+    });
+    return;
   }
+
+  this.loading = true;
+  this.errorMessage = '';
+
+  this.authService.login(this.loginForm.value).subscribe({
+    next: (response) => {
+      if (response.success) {
+        this.snackBar.open('Login effettuato con successo!', 'Chiudi', {
+          duration: 3000
+        });
+        this.dialogRef.close({ success: true });
+      } else {
+        this.errorMessage = response.message || 'Credenziali non valide';
+        this.loading = false;
+      }
+    },
+    error: (error) => {
+      console.error('❌ Errore login:', error);
+      this.errorMessage = error.message || 'Email o password non corretti';
+      this.loading = false; // reset loading
+    },
+    complete: () => {
+      this.loading = false;
+    }
+  });
+}
 
   openRegister() {
     this.dialogRef.close({ openRegister: true });

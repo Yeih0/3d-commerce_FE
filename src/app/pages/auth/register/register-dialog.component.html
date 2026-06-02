@@ -1,0 +1,134 @@
+<div class="register-dialog">
+    <h2 mat-dialog-title>
+        <mat-icon>person_add</mat-icon>
+        Registrati
+    </h2>
+
+    <mat-dialog-content>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+            <!-- Nome -->
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Nome</mat-label>
+                <input matInput formControlName="name" placeholder="Mario" autocomplete="given-name">
+                <mat-icon matPrefix>person</mat-icon>
+                @if (registerForm.get('name')?.hasError('required') && registerForm.get('name')?.touched) {
+                <mat-error>Nome obbligatorio</mat-error>
+                }
+            </mat-form-field>
+
+            <!-- Cognome -->
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Cognome</mat-label>
+                <input matInput formControlName="surname" placeholder="Rossi" autocomplete="family-name">
+                <mat-icon matPrefix>person</mat-icon>
+                @if (registerForm.get('surname')?.hasError('required') && registerForm.get('surname')?.touched) {
+                <mat-error>Cognome obbligatorio</mat-error>
+                }
+            </mat-form-field>
+
+            <!-- Email -->
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" formControlName="email" placeholder="mario.rossi@email.com"
+                    autocomplete="email">
+                <mat-icon matPrefix>email</mat-icon>
+                @if (registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched) {
+                <mat-error>Email obbligatoria</mat-error>
+                }
+                @if (registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched) {
+                <mat-error>Email non valida</mat-error>
+                }
+            </mat-form-field>
+
+            <!-- Data di Nascita -->
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Data di Nascita</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="birthDate" placeholder="GG/MM/AAAA"
+                    [max]="maxDate" readonly>
+                <mat-hint>Seleziona dal calendario</mat-hint>
+                <mat-icon matPrefix>cake</mat-icon>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+
+                @if (registerForm.get('birthDate')?.hasError('required') && registerForm.get('birthDate')?.touched) {
+                <mat-error>Data di nascita obbligatoria</mat-error>
+                }
+                @if (registerForm.get('birthDate')?.hasError('underAge')) {
+                <mat-error>Devi avere almeno 18 anni</mat-error>
+                }
+                @if (registerForm.get('birthDate')?.hasError('invalidDate')) {
+                <mat-error>Formato data non valido</mat-error>
+                }
+            </mat-form-field>
+
+            <!-- Telefono (opzionale) -->
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Telefono (opzionale)</mat-label>
+                <input matInput type="tel" formControlName="phone" placeholder="+39 123 456 7890" autocomplete="tel">
+                <mat-icon matPrefix>phone</mat-icon>
+            </mat-form-field>
+
+            <!-- Password -->
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Password</mat-label>
+                <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password"
+                    placeholder="••••••••" autocomplete="new-password">
+                <mat-icon matPrefix>lock</mat-icon>
+                <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+                    <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+                @if (registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched) {
+                <mat-error>Password obbligatoria</mat-error>
+                }
+                @if (registerForm.get('password')?.hasError('minlength')) {
+                <mat-error>Minimo 6 caratteri</mat-error>
+                }
+            </mat-form-field>
+
+            <!-- Conferma Password -->
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Conferma Password</mat-label>
+                <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword"
+                    placeholder="••••••••" autocomplete="new-password">
+                <mat-icon matPrefix>lock</mat-icon>
+                <button mat-icon-button matSuffix type="button" (click)="hideConfirmPassword = !hideConfirmPassword">
+                    <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+                @if (registerForm.get('confirmPassword')?.hasError('required') &&
+                registerForm.get('confirmPassword')?.touched) {
+                <mat-error>Conferma password obbligatoria</mat-error>
+                }
+                @if (registerForm.hasError('passwordMismatch') && registerForm.get('confirmPassword')?.touched) {
+                <mat-error>Le password non corrispondono</mat-error>
+                }
+            </mat-form-field>
+
+            @if (errorMessage) {
+            <div class="error-message">
+                <mat-icon>error</mat-icon>
+                <span>{{ errorMessage }}</span>
+            </div>
+            }
+
+            <div class="actions">
+                <button mat-raised-button color="primary" type="submit" [disabled]="!registerForm.valid || loading"
+                    class="full-width">
+                    @if (loading) {
+                    <mat-spinner diameter="20"></mat-spinner>
+                    <span>Registrazione in corso...</span>
+                    } @else {
+                    <span>Registrati</span>
+                    }
+                </button>
+            </div>
+        </form>
+
+        <div class="login-link">
+            <p>Hai già un account?</p>
+            <button mat-button color="accent" (click)="openLogin()">
+                Accedi
+            </button>
+        </div>
+    </mat-dialog-content>
+</div>

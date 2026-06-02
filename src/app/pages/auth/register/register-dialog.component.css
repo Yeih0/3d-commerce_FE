@@ -1,0 +1,70 @@
+.register-dialog {
+    width: 450px;
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+    padding: 20px 24px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+mat-dialog-content {
+    padding: 24px;
+    max-height: calc(90vh - 140px);
+    overflow-y: auto;
+}
+
+.full-width {
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.error-message {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    background: #ffebee;
+    color: #c62828;
+    border-radius: 4px;
+    margin-bottom: 16px;
+
+    mat-icon {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.actions {
+    margin-top: 24px;
+
+    button {
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    mat-spinner {
+        display: inline-block;
+    }
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #e0e0e0;
+
+    p {
+        margin: 0 0 8px 0;
+        color: #666;
+    }
+}

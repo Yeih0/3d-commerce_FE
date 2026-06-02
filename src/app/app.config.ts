@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, LOCALE_ID, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -13,17 +13,22 @@ import { FooterComponent } from './components/footer/footer';
 import { authInterceptor } from './interceptors/auth.interceptor';
 import { errorInterceptor } from './interceptors/error.interceptor';
 
+import localeIt from '@angular/common/locales/it'; 
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localeIt);
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideAnimations(),
-    // Configura HttpClient con interceptors
     provideHttpClient(
       withInterceptors([
         authInterceptor,
         errorInterceptor
       ])
-    )
+    ),
+    { provide: LOCALE_ID, useValue: 'it-IT' }
   ]
 };
 
